@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Cloud17.IO.Archive.SevenZip</RootNamespace>
+    <AssemblyName>Cloud17.IO.Archive.SevenZip</AssemblyName>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SevenZipSharp" Version="0.64.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cloud17.IO.Parsing\Cloud17.IO.Parsing.csproj" />
+    <ProjectReference Include="..\Cloud17.IO\Cloud17.IO.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="7z.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="7z64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
