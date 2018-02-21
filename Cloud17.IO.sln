@@ -3,9 +3,50 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AF000EE5-C691-4CC2-89E1-A416FE867601}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloud17.IO.Tests", "Cloud17.IO.Tests\Cloud17.IO.Tests.csproj", "{ECF9524F-1424-49C7-81E0-6E94012BE2F6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloud17.IO", "Cloud17.IO\Cloud17.IO.csproj", "{01511A6F-D6E2-44C4-BCD4-F4781ABDCB27}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloud17.IO.Parsing", "Cloud17.IO.Parsing\Cloud17.IO.Parsing.csproj", "{6A44E43C-0F22-4D4C-BF22-B1E9E2D8A022}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloud17.IO.Parsing.Iso8583", "Cloud17.IO.Parsing.Iso8583\Cloud17.IO.Parsing.Iso8583.csproj", "{5B1E392B-F273-4FF2-8833-BC397CDFA209}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloud17.IO.Archive.7z", "Cloud17.IO.Archive.7z\Cloud17.IO.Archive.7z.csproj", "{481247D7-8F2F-4514-8EE5-93496FB3A9F0}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ECF9524F-1424-49C7-81E0-6E94012BE2F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECF9524F-1424-49C7-81E0-6E94012BE2F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECF9524F-1424-49C7-81E0-6E94012BE2F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECF9524F-1424-49C7-81E0-6E94012BE2F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01511A6F-D6E2-44C4-BCD4-F4781ABDCB27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01511A6F-D6E2-44C4-BCD4-F4781ABDCB27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01511A6F-D6E2-44C4-BCD4-F4781ABDCB27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01511A6F-D6E2-44C4-BCD4-F4781ABDCB27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A44E43C-0F22-4D4C-BF22-B1E9E2D8A022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A44E43C-0F22-4D4C-BF22-B1E9E2D8A022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A44E43C-0F22-4D4C-BF22-B1E9E2D8A022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A44E43C-0F22-4D4C-BF22-B1E9E2D8A022}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B1E392B-F273-4FF2-8833-BC397CDFA209}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B1E392B-F273-4FF2-8833-BC397CDFA209}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B1E392B-F273-4FF2-8833-BC397CDFA209}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B1E392B-F273-4FF2-8833-BC397CDFA209}.Release|Any CPU.Build.0 = Release|Any CPU
+		{481247D7-8F2F-4514-8EE5-93496FB3A9F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{481247D7-8F2F-4514-8EE5-93496FB3A9F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{481247D7-8F2F-4514-8EE5-93496FB3A9F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{481247D7-8F2F-4514-8EE5-93496FB3A9F0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ECF9524F-1424-49C7-81E0-6E94012BE2F6} = {AF000EE5-C691-4CC2-89E1-A416FE867601}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {26AD5565-C932-4A33-9072-64E7894E4E30}
