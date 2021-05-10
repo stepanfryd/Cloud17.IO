@@ -1,8 +1,11 @@
-﻿namespace Cloud17.IO.Parsing.Iso8583.Entities
+﻿using System.Diagnostics;
+
+namespace Cloud17.IO.Parsing.Iso8583.Entities
 {
 	/// <summary>
 	///   Data element sub field
 	/// </summary>
+	[DebuggerDisplay("[{Code} - {Name}] {Value}")]
 	public class SubField
 	{
 		#region Public

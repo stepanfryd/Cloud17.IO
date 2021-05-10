@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Cloud17.IO.Parsing.Configuration
 {
@@ -12,7 +12,7 @@ namespace Cloud17.IO.Parsing.Configuration
 		/// <summary>
 		/// Single document configuration settings
 		/// </summary>
-		[JsonProperty("documents")]
+		[JsonPropertyName("documents")]
 		public DocumentSettings[] DocumentsSettings { get; set; }
 
 		#endregion Public Properties

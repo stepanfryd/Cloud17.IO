@@ -10,6 +10,8 @@ namespace Cloud17.IO.Parsing.Iso8583.Configuration
 	{
 		#region Constructors
 
+		public DataElementConfig() { }
+
 		/// <summary>
 		///   Creates instance of data element configuration
 		/// </summary>

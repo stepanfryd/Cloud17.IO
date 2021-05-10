@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Cloud17.IO.Parsing.Iso8583.Configuration
 {
@@ -7,6 +7,33 @@ namespace Cloud17.IO.Parsing.Iso8583.Configuration
 	/// </summary>
 	public class SubFieldInfo
 	{
+		#region Public properties
+
+		/// <summary>
+		///   Field data length
+		/// </summary>
+		[JsonPropertyName("len")]
+		public int Length { get; set; }
+
+		/// <summary>
+		///   Field name
+		/// </summary>
+		[JsonPropertyName("name")]
+		public string Name { get; set; }
+
+		/// <summary>
+		///   Field Justification (left/right)
+		/// </summary>
+		[JsonPropertyName("justify")]
+		public string Justification { get; set; }
+
+		/// <summary>
+		///   Field Justification (left/right)
+		/// </summary>
+		[JsonPropertyName("code")]
+		public string Code { get; set; }
+		#endregion
+
 		#region Constructors
 
 		/// <summary>
@@ -22,31 +49,5 @@ namespace Cloud17.IO.Parsing.Iso8583.Configuration
 
 		#endregion
 
-		#region Public
-
-		/// <summary>
-		///   Field data length
-		/// </summary>
-		[JsonProperty("len", Required = Required.Always)]
-		public int Length { get; set; }
-
-		/// <summary>
-		///   Field name
-		/// </summary>
-		[JsonProperty("name", Required = Required.Always)]
-		public string Name { get; set; }
-
-		/// <summary>
-		///   Field Justification (left/right)
-		/// </summary>
-		[JsonProperty("justifi")]
-		public string Justification { get; set; }
-
-		/// <summary>
-		///   Field Justification (left/right)
-		/// </summary>
-		[JsonProperty("code")]
-		public string Code { get; set; }
-		#endregion
 	}
 }

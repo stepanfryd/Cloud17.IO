@@ -1,6 +1,8 @@
 ﻿using Cloud17.IO.Parsing.Configuration;
 using Cloud17.IO.Parsing.Interfaces;
-using Cloud17.IO.Parsing.Logging;
+
+using Microsoft.Extensions.Logging;
+
 using System;
 using System.Collections.Generic;
 
@@ -14,12 +16,12 @@ namespace Cloud17.IO.Parsing
 		IDisposable,
 		ISchemeParser<TConfiguration> where TConfiguration : IParserConfiguration
 	{
-		#region Public Properties
+		#region Public and Protected Properties
 
 		/// <summary>
 		/// List of documents in file
 		/// </summary>
-		public IList<IReportDocument> Documents { get; }
+		public IList<IReportDocument> Documents { get; } = new List<IReportDocument>();
 
 		/// <summary>
 		/// File parser configuration
@@ -31,10 +33,6 @@ namespace Cloud17.IO.Parsing
 		/// </summary>
 		public bool IsKnownFile { get; set; }
 
-		#endregion Public Properties
-
-		#region Protected Properties
-
 		/// <summary>
 		/// Byte array of file content
 		/// </summary>
@@ -43,9 +41,9 @@ namespace Cloud17.IO.Parsing
 		/// <summary>
 		/// Logger instance
 		/// </summary>
-		protected ILog Log { get; set; }
+		protected ILogger Log { get; set; }
 
-		#endregion Protected Properties
+		#endregion
 
 		#region Public Constructors
 
@@ -54,13 +52,11 @@ namespace Cloud17.IO.Parsing
 		/// </summary>
 		/// <param name="fileContent">Content of parsed file</param>
 		/// <param name="configuration">Parser configuration</param>
-		protected BaseSchemeParser(byte[] fileContent, TConfiguration configuration)
+		protected BaseSchemeParser(ILogger logger, byte[] fileContent, TConfiguration configuration)
 		{
-			Log = LogProvider.GetLogger(GetType());
-			Documents = new List<IReportDocument>();
-
-			FileContent = fileContent;
-			ParserConfiguration = configuration;
+			Log = logger ?? throw new ArgumentNullException(nameof(logger));
+			FileContent = fileContent ?? throw new ArgumentNullException(nameof(fileContent));
+			ParserConfiguration = configuration ?? throw new ArgumentNullException(nameof(configuration));
 		}
 
 		#endregion Public Constructors

@@ -1,6 +1,8 @@
 ﻿using Cloud17.IO.Parsing.Configuration;
 using Cloud17.IO.Parsing.Interfaces;
-using Cloud17.IO.Parsing.Logging;
+
+using Microsoft.Extensions.Logging;
+
 using System;
 using System.Linq;
 using System.Reflection;
@@ -18,18 +20,18 @@ namespace Cloud17.IO.Parsing
 		private readonly DocumentSettings _configuration;
 		private readonly IReportDocument _entity;
 		private readonly Type _entityType;
-		private readonly ILog _log = LogProvider.For<ReportDocumentParser>();
+		private readonly ILogger _logger;
 
 		#endregion Private fields
 
 		#region Constructors
 
-		private ReportDocumentParser(string textBlock, DocumentSettings configuration)
+		private ReportDocumentParser(ILogger<ReportDocumentParser> logger, string textBlock, DocumentSettings configuration)
 		{
-			if (string.IsNullOrEmpty(textBlock)) throw new NullReferenceException("Report text block is not specified.");
+			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
+			_configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+			if (string.IsNullOrEmpty(textBlock)) throw new ArgumentNullException(nameof(textBlock));
 			TextBlock = textBlock;
-
-			_configuration = configuration ?? throw new NullReferenceException("Document parser configuration is not specified.");
 			_entityType = _configuration.DataEntity;
 			_entity = (IReportDocument)Activator.CreateInstance(_entityType);
 
@@ -112,7 +114,7 @@ namespace Cloud17.IO.Parsing
 			}
 			catch (Exception e)
 			{
-				_log.Error($"There is an error in custom value parser for type ${reportDocumentEntity.GetType()} and property ${prop.Name}", e);
+				_logger.LogError(e, $"There is an error in custom value parser for type ${reportDocumentEntity.GetType()} and property ${prop.Name}");
 			}
 		}
 
@@ -254,9 +256,7 @@ namespace Cloud17.IO.Parsing
 							}
 							catch (Exception e)
 							{
-								_log.Error(
-									$"Complex type parsing error. PropretyPath: {path}, MatchValue ({matchValue.GetType()}=>{prop.PropertyType}): {matchValue}",
-									e);
+								_logger.LogError(e, $"Complex type parsing error. PropretyPath: {path}, MatchValue ({matchValue.GetType()}=>{prop.PropertyType}): {matchValue}");
 							}
 						}
 					}
@@ -272,7 +272,7 @@ namespace Cloud17.IO.Parsing
 		/// <returns></returns>
 		public static IReportDocument Parse(string textBlock, DocumentSettings configuration)
 		{
-			var parser = new ReportDocumentParser(textBlock, configuration);
+			var parser = new ReportDocumentParser(new Logger<ReportDocumentParser>(new LoggerFactory()), textBlock, configuration);
 			return parser.ParseDocument();
 		}
 
@@ -300,7 +300,7 @@ namespace Cloud17.IO.Parsing
 			}
 			catch (Exception e)
 			{
-				_log.Warn($"Problem converting to type {destinationType.FullName} value '{value}'", e);
+				_logger.LogWarning(e, $"Problem converting to type {destinationType.FullName} value '{value}'");
 				return false;
 			}
 		}

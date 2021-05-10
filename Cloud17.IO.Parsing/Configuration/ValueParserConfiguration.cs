@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cloud17.IO.Parsing;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Cloud17.IO.Parsing.Configuration
 {
@@ -21,7 +20,7 @@ namespace Cloud17.IO.Parsing.Configuration
 		/// <summary>
 		///   Parser type
 		/// </summary>
-		[JsonProperty("type")]
+		[JsonPropertyName("type")]
 		public Type ParserType { get; set; }
 
 		/// <summary>
@@ -34,7 +33,7 @@ namespace Cloud17.IO.Parsing.Configuration
 			{
 				if (ParserType != null && _parser == null)
 				{
-					_parser = (IValueParser<IValueParserResult>) Activator.CreateInstance(ParserType, Settings);
+					_parser = (IValueParser<IValueParserResult>)Activator.CreateInstance(ParserType, Settings);
 				}
 
 				return _parser;
@@ -44,7 +43,7 @@ namespace Cloud17.IO.Parsing.Configuration
 		/// <summary>
 		///   Parser configuration settings
 		/// </summary>
-		[JsonProperty("settings")]
+		[JsonPropertyName("settings")]
 		public Dictionary<string, object> Settings { get; set; }
 
 		#endregion

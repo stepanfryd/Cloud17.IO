@@ -1,5 +1,6 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Cloud17.IO.Parsing.Iso8583.Configuration
 {
@@ -8,17 +9,74 @@ namespace Cloud17.IO.Parsing.Iso8583.Configuration
 	/// </summary>
 	public class DataElementInfo
 	{
-		#region Fields
+
+		#region Public properties
 
 		/// <summary>
 		///   Sub element info
 		/// </summary>
-		[JsonProperty("elements", NullValueHandling = NullValueHandling.Ignore)] public SubElementInfo Elements;
+		[JsonPropertyName("elements")]
+		[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+		public SubElementInfo Elements { get; set; }
 
 		/// <summary>
 		///   Array of sub field info
 		/// </summary>
-		[JsonProperty("fields", NullValueHandling = NullValueHandling.Ignore)] public SubFieldInfo[] Fields;
+		[JsonPropertyName("fields")]
+		[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+		public List<SubFieldInfo> Fields { get; set; } = new List<SubFieldInfo>();
+
+		/*
+		/// <summary>
+		///   Fix length data value
+		/// </summary>
+		[JsonPropertyName("fix")]
+		[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+		public int? FixLen
+		{
+			get
+			{
+				if (!IsVariable) return Length; else return null;
+			}
+			set
+			{
+				if (value != null)
+				{
+					Length = value.Value;
+				}
+			}
+		}
+
+		/// <summary>
+		///   Variable length data value
+		/// </summary>
+		[JsonPropertyName("var")]
+		[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+		public int? VarLen
+		{
+			get
+			{
+				if (IsVariable) return Length; else return null;
+			}
+			set
+			{
+				if (value != null)
+				{
+					Length = value.Value;
+					IsVariable = true;
+				}
+			}
+		}
+		*/
+
+		public DataLength DataLength { get; set; }
+
+
+		/// <summary>
+		///   Data element is in the message
+		/// </summary>
+		[JsonIgnore]
+		public bool Exists { get; set; }
 
 		#endregion
 
@@ -34,84 +92,52 @@ namespace Cloud17.IO.Parsing.Iso8583.Configuration
 		/// <summary>
 		///   Create instance of object
 		/// </summary>
-		/// <param name="fixLen">Fixed data length</param>
-		/// <param name="varLen">Variable data length</param>
-		public DataElementInfo(int? fixLen, int? varLen)
-			: this(fixLen, varLen, null, null)
+		/// <param name="length">Data length</param>
+		/// <param name="isVariable">Is variable data length</param>
+		public DataElementInfo(int length, bool isVariable)
+			: this(length, isVariable, null, null)
 		{
 		}
 
 		/// <summary>
 		///   Create instance of object
 		/// </summary>
-		/// <param name="fixLen">Fixed data length</param>
-		/// <param name="varLen">Variable data length</param>
-		/// <param name="subElement">Sub element info</param>
-		public DataElementInfo(int? fixLen, int? varLen, SubElementInfo subElement)
-			: this(fixLen, varLen, subElement, null)
+		/// <param name="length">Data length</param>
+		/// <param name="isVariable">Is variable data length</param>
+		/// <param name="subElement">Sub elements info</param>
+		public DataElementInfo(int length, bool isVariable, SubElementInfo subElement)
+			: this(length, isVariable, subElement, null)
 		{
 		}
 
 		/// <summary>
 		///   Create instance of object
 		/// </summary>
-		/// <param name="fixLen">Fixed data length</param>
-		/// <param name="varLen">Variable data length</param>
+		/// <param name="length">Data length</param>
+		/// <param name="isVariable">Is variable data length</param>
 		/// <param name="subfields">Sub fields infos</param>
-		public DataElementInfo(int? fixLen, int? varLen, SubFieldInfo[] subfields) : this(fixLen, varLen, null, subfields)
+		public DataElementInfo(int length, bool isVariable, IEnumerable<SubFieldInfo> subfields) : this(length, isVariable, null, subfields)
 		{
 		}
 
 		/// <summary>
 		///   Create instance of object
 		/// </summary>
-		/// <param name="fixLen"></param>
-		/// <param name="varLen"></param>
-		/// <param name="subElement"></param>
-		/// <param name="subfields"></param>
-		public DataElementInfo(int? fixLen, int? varLen, SubElementInfo subElement, SubFieldInfo[] subfields)
+		/// <param name="length">Data length</param>
+		/// <param name="isVariable">Is variable data length</param>
+		/// <param name="subElement">Sub elements info</param>
+		/// <param name="subfields">Sub fields infos</param>
+		public DataElementInfo(int length, bool isVariable, SubElementInfo subElement, IEnumerable<SubFieldInfo> subfields)
 		{
-			if (fixLen == null && varLen == null) throw new ApplicationException($"Pamether fixLen or varLen must be set.");
-			if (fixLen != null && varLen != null)
-				throw new ApplicationException($"Both parameters (fixLen and varLen) cannot be set. Only one of them can be set");
-
-			FixLen = fixLen;
-			VarLen = varLen;
+			DataLength = new DataLength
+			{
+				Length = length,
+				IsVariable = isVariable
+			};
 			Elements = subElement;
-			Fields = subfields;
+			Fields = new List<SubFieldInfo>(subfields);
 		}
 
 		#endregion
-
-		#region Public
-
-		/// <summary>
-		///   Fix length data value
-		/// </summary>
-		[JsonProperty("fix", NullValueHandling = NullValueHandling.Ignore)]
-		public int? FixLen { get; set; }
-
-		/// <summary>
-		///   Variable length data value
-		/// </summary>
-		[JsonProperty("var", NullValueHandling = NullValueHandling.Ignore)]
-		public int? VarLen { get; set; }
-
-		/// <summary>
-		///   Data element is in the message
-		/// </summary>
-		[JsonIgnore]
-		public bool Exists { get; set; }
-
-		#endregion
-
-		/// <summary>
-		///   Data element info is valid
-		/// </summary>
-		/// <returns></returns>
-		public bool IsValid()
-		{
-			return !(FixLen == null && VarLen == null) && !(FixLen != null && VarLen != null);
-		}
 	}
 }

@@ -1,12 +1,39 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Cloud17.IO.Parsing.Iso8583.Entities
 {
 	/// <summary>
 	///   Message Private Data Subelement sub element PDS
 	/// </summary>
+	[DebuggerDisplay("[{Code}] {Value}")]
 	public class SubElement
 	{
+
+		#region Public
+
+		/// <summary>
+		///   Sub element code
+		/// </summary>
+		public int Code { get; set; }
+
+		/// <summary>
+		///   Sub element value
+		/// </summary>
+		public string Value { get; set; }
+
+		/// <summary>
+		///   Data length
+		/// </summary>
+		public int Length { get; set; }
+
+		/// <summary>
+		///   Sub element sub fields
+		/// </summary>
+		public List<SubField> SubFields { get; set; }
+
+		#endregion Public
+
 		#region Constructors
 
 		/// <summary>
@@ -35,28 +62,5 @@ namespace Cloud17.IO.Parsing.Iso8583.Entities
 
 		#endregion Constructors
 
-		#region Public
-
-		/// <summary>
-		///   Sub element code
-		/// </summary>
-		public int Code { get; set; }
-
-		/// <summary>
-		///   Sub element value
-		/// </summary>
-		public string Value { get; set; }
-
-		/// <summary>
-		///   Data length
-		/// </summary>
-		public int Length { get; set; }
-
-		/// <summary>
-		///   Sub element sub fields
-		/// </summary>
-		public List<SubField> SubFields { get; set; }
-
-		#endregion Public
 	}
 }

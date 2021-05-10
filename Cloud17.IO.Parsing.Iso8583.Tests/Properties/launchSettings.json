@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Cloud17.IO.Parsing.Iso8583.Tests": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "T112_TEST_FILE_PATH": "Data/Test_T112.out"
+      }
+    }
+  }
+}

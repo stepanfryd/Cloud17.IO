@@ -1,14 +1,17 @@
 ﻿using Cloud17.IO.Parsing.Interfaces;
 using Cloud17.IO.Parsing.Iso8583.Configuration;
 using Cloud17.IO.Parsing.Iso8583.Entities;
-using Cloud17.IO.Parsing.Logging;
-using Newtonsoft.Json;
+using Cloud17.IO.Parsing.Iso8583.Serialization;
+
+using Microsoft.Extensions.Logging;
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 
 namespace Cloud17.IO.Parsing.Iso8583.Parsing
 {
@@ -24,7 +27,7 @@ namespace Cloud17.IO.Parsing.Iso8583.Parsing
 		private const int MESSAGE_SIZE_LENGTH = 4;
 		private const int MTI_LENGTH = 4;
 		private int _currentPosition;
-		private ImpConfiguration _impParserConfig;
+		private ParserConfiguration _impParserConfig;
 
 		private bool disposedValue = false;
 
@@ -50,7 +53,7 @@ namespace Cloud17.IO.Parsing.Iso8583.Parsing
 		/// <summary>
 		/// Creates instance of type
 		/// </summary>
-		public Iso8583Parser(byte[] fileContent, Iso8583ParserConfig configuration) : base(fileContent, configuration)
+		public Iso8583Parser(ILogger<Iso8583Parser> logger, byte[] fileContent, Iso8583ParserConfig configuration) : base(logger, fileContent, configuration)
 		{
 			LoadElementConfiguration();
 		}
@@ -98,9 +101,7 @@ namespace Cloud17.IO.Parsing.Iso8583.Parsing
 
 				if (rdw > 0)
 				{
-					// MESSAGE TYPE IDENTIFIER
-					var mti = Convert.ToInt32(GetData(GetDataAndMove(MTI_LENGTH)));
-					var message = CreateMessage(mti, rdw);
+					var message = CreateMessage(GetData(GetDataAndMove(MTI_LENGTH)), rdw);
 
 					byte[] bitmap;
 					var bits = GetBitmapBits(out bitmap);
@@ -118,16 +119,15 @@ namespace Cloud17.IO.Parsing.Iso8583.Parsing
 							byte[] data = { };
 							var length = 0;
 
-							if (fv.FixLen != null)
+							if (fv.DataLength.IsVariable)
 							{
-								length = fv.FixLen.Value;
+								var dataGet = GetData(GetDataAndMove(fv.DataLength.Length));
+								length = Convert.ToInt32(dataGet);
 								data = GetDataAndMove(length);
 							}
-
-							if (fv.VarLen != null)
+							else
 							{
-								var dataGet = GetData(GetDataAndMove(fv.VarLen.Value));
-								length = Convert.ToInt32(dataGet);
+								length = fv.DataLength.Length;
 								data = GetDataAndMove(length);
 							}
 
@@ -161,7 +161,7 @@ namespace Cloud17.IO.Parsing.Iso8583.Parsing
 				{
 					var msg = $"MSG ({rdw} bytes). Error reading binary stream, message length is negative.";
 					var exc = new Exception(msg);
-					Log.Error(msg, exc);
+					Log.LogError(exc, msg);
 
 					throw exc;
 				}
@@ -203,13 +203,13 @@ namespace Cloud17.IO.Parsing.Iso8583.Parsing
 			};
 		}
 
-		private Message CreateMessage(int typeIdentifier, int size)
+		private Message CreateMessage(string typeIdentifier, int size)
 		{
 			return new Message
 			{
 				DataProcessor = this.MessageDataProcessor,
-				ImpParserConfig = _impParserConfig,
-				TypeIdentifier = typeIdentifier,
+				ParserConfiguration = _impParserConfig,
+				MIT = MessageTypeIndicator.Parse(typeIdentifier),
 				Size = size,
 				DateProcessed = DateTime.Now
 			};
@@ -277,12 +277,12 @@ namespace Cloud17.IO.Parsing.Iso8583.Parsing
 			}
 		}
 
-		private void GetSubFields(DataElement element, SubFieldInfo[] fieldInfos, byte[] data)
+		private void GetSubFields(DataElement element, IEnumerable<SubFieldInfo> fieldInfos, byte[] data)
 		{
 			element.SubFields.AddRange(GetSubFields(fieldInfos, data));
 		}
 
-		private List<SubField> GetSubFields(SubFieldInfo[] fieldInfos, byte[] data)
+		private List<SubField> GetSubFields(IEnumerable<SubFieldInfo> fieldInfos, byte[] data)
 		{
 			var retVal = new List<SubField>();
 
@@ -318,8 +318,13 @@ namespace Cloud17.IO.Parsing.Iso8583.Parsing
 						ParserConfiguration.DataElementConfigPath);
 				}
 
-				_impParserConfig = JsonConvert.DeserializeObject<ImpConfiguration>(
-					File.ReadAllText(ParserConfiguration.DataElementConfigPath));
+				_impParserConfig = JsonSerializer.Deserialize<ParserConfiguration>(
+					File.ReadAllText(ParserConfiguration.DataElementConfigPath), new JsonSerializerOptions
+					{
+						Converters = {
+							new DataElementInfoSerializer()
+						}
+					});
 			}
 		}
 

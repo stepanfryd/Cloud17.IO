@@ -2,12 +2,14 @@
 using Cloud17.IO.Parsing.Iso8583.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Cloud17.IO.Parsing.Iso8583.Entities
 {
 	/// <summary>
 	/// Class holds Integrated Produc Message data
 	/// </summary>
+	[DebuggerDisplay("{MIT}")]
 	public class Message : IReportDocument
 	{
 		#region Public Properties
@@ -28,7 +30,7 @@ namespace Cloud17.IO.Parsing.Iso8583.Entities
 		/// <summary>
 		/// Message parser configuration
 		/// </summary>
-		public ImpConfiguration ImpParserConfig { get; set; }
+		public ParserConfiguration ParserConfiguration { get; set; }
 
 		/// <summary>
 		///
@@ -46,7 +48,7 @@ namespace Cloud17.IO.Parsing.Iso8583.Entities
 		/// <summary>
 		/// Message Type Identifier
 		/// </summary>
-		public int TypeIdentifier { get; set; }
+		public MessageTypeIndicator MIT { get; set; }
 
 		#endregion Public Properties
 

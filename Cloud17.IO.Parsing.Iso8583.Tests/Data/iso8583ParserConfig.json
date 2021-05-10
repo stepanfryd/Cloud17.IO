@@ -1,0 +1,611 @@
+{
+  "process": {
+    "messageTypes": [ 1644, 1740 ],
+    "dataElements": [ 24, 25, 48, 49, 50, 71 ],
+    "pds": [ 105, 148, 380, 381, 384, 390, 391, 392, 393, 394, 395, 396, 400, 401, 402 ]
+  },
+  "subDataElementFields": {
+    "0105": [
+      {
+        "code": "FILE_TYPE",
+        "len": 3,
+        "name": "File Type"
+      },
+      {
+        "code": "FILE_REFERENCE_DATE",
+        "len": 6,
+        "name": "File Reference Date"
+      },
+      {
+        "code": "PROCESSOR_ID",
+        "len": 11,
+        "name": "Processor ID"
+      },
+      {
+        "code": "FILE_SEQUENCE_NUMBER",
+        "len": 5,
+        "name": "File Sequence Number"
+      }
+    ],
+    "0148": [
+      {
+        "code": "CURRENCY_CODE01",
+        "len": 3,
+        "name": "Currency Code"
+      },
+      {
+        "code": "CURRENCY_EXPONENT01",
+        "len": 1,
+        "name": "Currency Exponent"
+      },
+      {
+        "code": "CURRENCY_CODE02",
+        "len": 3,
+        "name": "Currency Code"
+      },
+      {
+        "code": "CURRENCY_EXPONENT02",
+        "len": 1,
+        "name": "Currency Exponent"
+      },
+      {
+        "code": "CURRENCY_CODE03",
+        "len": 3,
+        "name": "Currency Code"
+      },
+      {
+        "code": "CURRENCY_EXPONENT03",
+        "len": 1,
+        "name": "Currency Exponent"
+      },
+
+      {
+        "code": "CURRENCY_CODE04",
+        "len": 3,
+        "name": "Currency Code"
+      },
+      {
+        "code": "CURRENCY_EXPONENT04",
+        "len": 1,
+        "name": "Currency Exponent"
+      },
+
+      {
+        "code": "CURRENCY_CODE05",
+        "len": 3,
+        "name": "Currency Code"
+      },
+      {
+        "code": "CURRENCY_EXPONENT05",
+        "len": 1,
+        "name": "Currency Exponent"
+      },
+
+      {
+        "code": "CURRENCY_CODE06",
+        "len": 3,
+        "name": "Currency Code"
+      },
+      {
+        "code": "CURRENCY_EXPONENT06",
+        "len": 1,
+        "name": "Currency Exponent"
+      },
+
+      {
+        "code": "CURRENCY_CODE07",
+        "len": 3,
+        "name": "Currency Code"
+      },
+      {
+        "code": "CURRENCY_EXPONENT07",
+        "len": 1,
+        "name": "Currency Exponent"
+      },
+
+      {
+        "code": "CURRENCY_CODE08",
+        "len": 3,
+        "name": "Currency Code"
+      },
+      {
+        "code": "CURRENCY_EXPONENT08",
+        "len": 1,
+        "name": "Currency Exponent"
+      },
+
+      {
+        "code": "CURRENCY_CODE09",
+        "len": 3,
+        "name": "Currency Code"
+      },
+      {
+        "code": "CURRENCY_EXPONENT09",
+        "len": 1,
+        "name": "Currency Exponent"
+      },
+
+      {
+        "code": "CURRENCY_CODE10",
+        "len": 3,
+        "name": "Currency Code"
+      },
+      {
+        "code": "CURRENCY_EXPONENT10",
+        "len": 1,
+        "name": "Currency Exponent"
+      },
+
+      {
+        "code": "CURRENCY_CODE11",
+        "len": 3,
+        "name": "Currency Code"
+      },
+      {
+        "code": "CURRENCY_EXPONENT11",
+        "len": 1,
+        "name": "Currency Exponent"
+      },
+
+      {
+        "code": "CURRENCY_CODE11",
+        "len": 3,
+        "name": "Currency Code"
+      },
+      {
+        "code": "CURRENCY_EXPONENT11",
+        "len": 1,
+        "name": "Currency Exponent"
+      },
+
+      {
+        "code": "CURRENCY_CODE11",
+        "len": 3,
+        "name": "Currency Code"
+      },
+      {
+        "code": "CURRENCY_EXPONENT11",
+        "len": 1,
+        "name": "Currency Exponent"
+      },
+
+      {
+        "code": "CURRENCY_CODE11",
+        "len": 3,
+        "name": "Currency Code"
+      },
+      {
+        "code": "CURRENCY_EXPONENT11",
+        "len": 1,
+        "name": "Currency Exponent"
+      },
+
+      {
+        "code": "CURRENCY_CODE11",
+        "len": 3,
+        "name": "Currency Code"
+      },
+      {
+        "code": "CURRENCY_EXPONENT11",
+        "len": 1,
+        "name": "Currency Exponent"
+      }
+
+    ],
+    "0380": [
+      {
+        "code": "DEBIT_CREDIT_INDICATOR",
+        "len": 1,
+        "name": "Debit/Credit Indicator"
+      },
+      {
+        "code": "AMOUNT_TRANSACTION",
+        "len": 16,
+        "name": "Amount, Transaction"
+      }
+    ],
+    "0381": [
+      {
+        "code": "DEBIT_CREDIT_INDICATOR",
+        "len": 1,
+        "name": "Debit/Credit Indicator"
+      },
+      {
+        "code": "AMOUNT_TRANSACTION",
+        "len": 16,
+        "name": "Amount, Transaction"
+      }
+    ],
+    "0384": [
+      {
+        "code": "DEBIT_CREDIT_INDICATOR",
+        "len": 1,
+        "name": "Debit/Credit Indicator"
+      },
+      {
+        "code": "AMOUNT_NET",
+        "len": 16,
+        "name": "Amount, Net"
+      }
+    ],
+    "0390": [
+      {
+        "code": "DEBIT_CREDIT_INDICATOR",
+        "len": 1,
+        "name": "Debit/Credit Indicator"
+      },
+      {
+        "code": "AMOUNT_TRANSACTION",
+        "len": 16,
+        "name": "Amount, Transaction"
+      }
+    ],
+    "0391": [
+      {
+        "code": "DEBIT_CREDIT_INDICATOR",
+        "len": 1,
+        "name": "Debit/Credit Indicator"
+      },
+      {
+        "code": "AMOUNT_TRANSACTION",
+        "len": 16,
+        "name": "Amount, Transaction"
+      }
+    ],
+    "0392": [
+      {
+        "code": "FEE_TYPE",
+        "len": 2,
+        "name": "Fee type Code"
+      },
+      {
+        "code": "DEBIT_CREDIT_INDICATOR",
+        "len": 1,
+        "name": "Debit/Credit Indicator"
+      },
+      {
+        "code": "AMOUNT_FEE",
+        "len": 15,
+        "name": "Amount, Fee"
+      }
+    ],
+    "0393": [
+      {
+        "code": "FEE_TYPE",
+        "len": 2,
+        "name": "Fee type Code"
+      },
+      {
+        "code": "DEBIT_CREDIT_INDICATOR",
+        "len": 1,
+        "name": "Debit/Credit Indicator"
+      },
+      {
+        "code": "AMOUNT_FEE",
+        "len": 15,
+        "name": "Amount, Fee"
+      }
+    ],
+    "0395": [
+
+      {
+        "code": "DEBIT_CREDIT_INDICATOR",
+        "len": 1,
+        "name": "Debit/Credit Indicator"
+      },
+      {
+        "code": "AMOUNT_NET_FEE",
+        "len": 16,
+        "name": "Amount, Net Fee"
+      }
+
+    ],
+    "0396": [
+      {
+        "code": "DEBIT_CREDIT_INDICATOR",
+        "len": 1,
+        "name": "Debit/Credit Indicator"
+      },
+      {
+        "code": "AMOUNT_NET_TOTAL",
+        "len": 16,
+        "name": "Amount, Net Total"
+      }
+    ]
+  },
+  "dataElements": {
+    "1": {
+      "fix": 16
+    },
+    "2": {
+      "var": 2
+    },
+    "3": {
+      "fields": [
+        {
+          "len": 2,
+          "name": "Cardholder Transaction Type"
+        },
+        {
+          "len": 2,
+          "name": "Cardholder “From” Account Type Code"
+        },
+        {
+          "len": 2,
+          "name": "Cardholder “To” Account Type Code"
+        }
+      ],
+      "fix": 6
+    },
+    "4": {
+      "fix": 12
+    },
+    "5": {
+      "fix": 12
+    },
+    "6": {
+      "fix": 12
+    },
+    "9": {
+      "fix": 8
+    },
+    "10": {
+      "fix": 8
+    },
+    "12": {
+      "fields": [
+        {
+          "len": 6,
+          "name": "Date"
+        },
+        {
+          "len": 6,
+          "name": "Time"
+        }
+      ],
+      "fix": 12
+    },
+    "14": {
+      "fix": 4
+    },
+    "22": {
+      "fields": [
+        {
+          "len": 1,
+          "name": "Terminal Data: Card Data Input Capability"
+        },
+        {
+          "len": 1,
+          "name": "Terminal Data: Cardholder Authentication Capability"
+        },
+        {
+          "len": 1,
+          "name": "Terminal Data: Card Capture Capability"
+        },
+        {
+          "len": 1,
+          "name": "Terminal Operating Environment"
+        },
+        {
+          "len": 1,
+          "name": "Cardholder Present Data"
+        },
+        {
+          "len": 1,
+          "name": "Card Present Data"
+        },
+        {
+          "len": 1,
+          "name": "Card Data: Input Mode"
+        },
+        {
+          "len": 1,
+          "name": "Cardholder Authentication Method"
+        },
+        {
+          "len": 1,
+          "name": "Cardholder Authentication Entity"
+        },
+        {
+          "len": 1,
+          "name": "Card Data Output Capability"
+        },
+        {
+          "len": 1,
+          "name": "Terminal Data Output Capability"
+        },
+        {
+          "len": 1,
+          "name": "PIN Capture Capability"
+        }
+      ],
+      "fix": 12
+    },
+    "23": {
+      "fix": 3
+    },
+    "24": {
+      "fix": 3
+    },
+    "25": {
+      "fix": 4
+    },
+    "26": {
+      "fix": 4
+    },
+    "30": {
+      "fields": [
+        {
+          "len": 12,
+          "name": "Original Amount, Transaction"
+        },
+        {
+          "len": 12,
+          "name": "Original Amount, Reconciliation"
+        }
+      ],
+      "fix": 24
+    },
+    "31": {
+      "fields": [
+        {
+          "len": 1,
+          "name": "Mixed Use; any numeric value"
+        },
+        {
+          "len": 6,
+          "name": "Acquirer’s BIN must contain the six-digit acquirer’s BIN"
+        },
+        {
+          "len": 4,
+          "name": "Julian Processing Date YDDD contains the Julian processing date the acquirer assigned to the First Presentment/1240"
+        },
+        {
+          "len": 11,
+          "name": "Acquirer’s Sequence Number contains the sequence number that the acquirer assigned to the First Presentment/1240; numeric"
+        },
+        {
+          "len": 1,
+          "name": "Check Digit Numeric; Lühn Formula Modulus-10 algorithm determines value on the previous 22 positions."
+        }
+      ],
+      "var": 2
+    },
+    "32": {
+      "var": 2
+    },
+    "33": {
+      "var": 2
+    },
+    "37": {
+      "fix": 12
+    },
+    "38": {
+      "fix": 6
+    },
+    "40": {
+      "fix": 3
+    },
+    "41": {
+      "fix": 8
+    },
+    "42": {
+      "fix": 15
+    },
+    "43": {
+      "var": 2
+    },
+    "48": {
+      "elements": {
+        "tagLen": 4,
+        "dataLen": 3
+      },
+      "var": 3
+    },
+    "49": {
+      "fix": 3
+    },
+    "50": {
+      "fix": 3
+    },
+    "51": {
+      "fix": 3
+    },
+    "54": {
+      "fields": [
+        {
+          "len": 2,
+          "name": "Additional Amount, Account Type"
+        },
+        {
+          "len": 2,
+          "name": "Additional Amount, Amount Type"
+        },
+        {
+          "len": 3,
+          "name": "Additional Amount, Currency Code"
+        },
+        {
+          "len": 1,
+          "name": "Additional Amount, Amount Sign"
+        },
+        {
+          "len": 12,
+          "name": "Additional Amount, Amount"
+        }
+      ],
+      "var": 3
+    },
+    "55": {
+      "var": 3
+    },
+    "62": {
+      "elements": {
+        "tagLen": 4,
+        "dataLen": 3
+      },
+      "var": 3
+    },
+    "63": {
+      "fields": [
+        {
+          "len": 1,
+          "name": "Life Cycle Support Indicator"
+        },
+        {
+          "len": 15,
+          "name": "Trace ID"
+        }
+      ],
+      "var": 3
+    },
+    "71": {
+      "fix": 8
+    },
+    "72": {
+      "var": 3
+    },
+    "73": {
+      "fix": 6
+    },
+    "93": {
+      "var": 2
+    },
+    "94": {
+      "var": 2
+    },
+    "95": {
+      "var": 2
+    },
+    "100": {
+      "var": 2
+    },
+    "111": {
+      "var": 3
+    },
+    "123": {
+      "elements": {
+        "tagLen": 4,
+        "dataLen": 3
+      },
+      "var": 3
+    },
+    "124": {
+      "elements": {
+        "tagLen": 4,
+        "dataLen": 3
+      },
+      "var": 3
+    },
+    "125": {
+      "elements": {
+        "tagLen": 4,
+        "dataLen": 3
+      },
+      "var": 3
+    },
+    "127": {
+      "var": 3
+    }
+  }
+}

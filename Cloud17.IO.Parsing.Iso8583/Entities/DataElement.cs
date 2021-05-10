@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
+using System.Diagnostics;
 
 namespace Cloud17.IO.Parsing.Iso8583.Entities
 {
@@ -7,21 +8,9 @@ namespace Cloud17.IO.Parsing.Iso8583.Entities
 	///   Message data element
 	/// </summary>
 	[XmlRoot("dataElement")]
+	[DebuggerDisplay("[{Code}] {Value}")]
 	public class DataElement
 	{
-		#region Constructors
-
-		/// <summary>
-		///   Creates instance of type
-		/// </summary>
-		public DataElement()
-		{
-			SubElements = new List<SubElement>();
-			SubFields = new List<SubField>();
-		}
-
-		#endregion
-
 		#region Public
 
 		/// <summary>
@@ -53,6 +42,19 @@ namespace Cloud17.IO.Parsing.Iso8583.Entities
 		/// </summary>
 		[XmlElement(ElementName = "subField", IsNullable = true)]
 		public List<SubField> SubFields { get; set; }
+
+		#endregion
+
+		#region Constructors
+
+		/// <summary>
+		///   Creates instance of type
+		/// </summary>
+		public DataElement()
+		{
+			SubElements = new List<SubElement>();
+			SubFields = new List<SubField>();
+		}
 
 		#endregion
 

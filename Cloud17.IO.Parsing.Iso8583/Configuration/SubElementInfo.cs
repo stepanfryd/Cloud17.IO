@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Cloud17.IO.Parsing.Iso8583.Configuration
 {
@@ -34,13 +34,13 @@ namespace Cloud17.IO.Parsing.Iso8583.Configuration
 		/// <summary>
 		///   Tag ID data length
 		/// </summary>
-		[JsonProperty("tagLength", Required = Required.Always)]
+		[JsonPropertyName("tagLen")]
 		public int TagLength { get; set; }
 
 		/// <summary>
 		///   Data data length
 		/// </summary>
-		[JsonProperty("dataLength", Required = Required.Always)]
+		[JsonPropertyName("dataLen")]
 		public int DataLength { get; set; }
 
 		#endregion

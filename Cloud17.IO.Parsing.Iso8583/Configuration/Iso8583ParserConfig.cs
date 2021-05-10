@@ -1,4 +1,5 @@
 ﻿using Cloud17.IO.Parsing.Configuration;
+
 using System.ComponentModel;
 using System.Text;
 using System.Xml.Serialization;
@@ -45,17 +46,22 @@ namespace Cloud17.IO.Parsing.Iso8583.Configuration
 		/// Source bytes encoding
 		/// </summary>
 		[XmlIgnore]
-		public Encoding SourceEncoding {
-			get {
+		public Encoding SourceEncoding
+		{
+			get
+			{
 				if (_sourceEncoding != null) return _sourceEncoding;
 				try
 				{
-					_sourceEncoding = Encoding.GetEncoding(!string.IsNullOrEmpty(SourceEncodingName) ? SourceEncodingName : "IBM037");
+					_sourceEncoding = Encoding.GetEncoding(!string.IsNullOrEmpty(SourceEncodingName) ? SourceEncodingName : "ASCII");
 				}
 				catch
 				{
-					_sourceEncoding = Encoding.GetEncoding("IBM037");
+					_sourceEncoding = CodePagesEncodingProvider.Instance.GetEncoding(SourceEncodingName);
 				}
+
+				if (_sourceEncoding == null)
+					_sourceEncoding = Encoding.ASCII;
 
 				return _sourceEncoding;
 			}
@@ -72,8 +78,10 @@ namespace Cloud17.IO.Parsing.Iso8583.Configuration
 		/// Target bytes encoding
 		/// </summary>
 		[XmlIgnore]
-		public Encoding TargetEncoding {
-			get {
+		public Encoding TargetEncoding
+		{
+			get
+			{
 				if (_targetEncoding != null) return _targetEncoding;
 				try
 				{

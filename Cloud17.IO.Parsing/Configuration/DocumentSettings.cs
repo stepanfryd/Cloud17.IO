@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Cloud17.IO.Parsing.Interfaces;
+
+using System;
 using System.Globalization;
-using Cloud17.IO.Parsing.Interfaces;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+
 
 namespace Cloud17.IO.Parsing.Configuration
 {
@@ -20,7 +22,7 @@ namespace Cloud17.IO.Parsing.Configuration
 		/// <summary>
 		/// Culture Info Name. Default en-US
 		/// </summary>
-		[JsonProperty("documentCulture")]
+		[JsonPropertyName("documentCulture")]
 		public string DocumentCultureName { get; set; } = "en-US";
 
 		/// <summary>
@@ -31,31 +33,31 @@ namespace Cloud17.IO.Parsing.Configuration
 		/// <summary>
 		/// Array of paterns for file content and type identification
 		/// </summary>
-		[JsonProperty("fileIdentificators")]
+		[JsonPropertyName("fileIdentificators")]
 		public string[] FileIdentificators { get; set; }
 
 		/// <summary>
 		/// C# string expression to preproces file content. eg. new StringBuilder(\"{0}\").Replace(\"\\\\n\", \"\\\\r\\\\n\").ToString(). Must have string result value.
 		/// </summary>
-		[JsonProperty("contentPreprocess")]
+		[JsonPropertyName("contentPreprocess")]
 		public string ContentPreprocess { get; set; }
 
 		/// <summary>
 		///   Regular expression patterns which identify document type
 		/// </summary>
-		[JsonProperty("documentTypePatterns")]
+		[JsonPropertyName("documentTypePatterns")]
 		public string[] DocumentTypePatterns { get; set; }
 
 		/// <summary>
 		/// Regular expression string which defines splitter for multiple documents in one file
 		/// </summary>
-		[JsonProperty("documentSplitter")]
+		[JsonPropertyName("documentSplitter")]
 		public string DocumentSplitter { get; set; }
 
 		/// <summary>
 		///   Type of document data processor. Must implements <see cref="IDataProcessor" />
 		/// </summary>
-		[JsonProperty("dataProcessor")]
+		[JsonPropertyName("dataProcessor")]
 		public Type DataProcessor
 		{
 			get { return _dataProcessor; }
@@ -63,9 +65,9 @@ namespace Cloud17.IO.Parsing.Configuration
 			{
 				var type = value;
 
-				if (!typeof (IDataProcessor).IsAssignableFrom(type))
+				if (!typeof(IDataProcessor).IsAssignableFrom(type))
 				{
-					throw new NotImplementedException($"Type {type} do not implements interface {typeof (IDataProcessor)}");
+					throw new NotImplementedException($"Type {type} do not implements interface {typeof(IDataProcessor)}");
 				}
 
 				_dataProcessor = type;
@@ -75,7 +77,7 @@ namespace Cloud17.IO.Parsing.Configuration
 		/// <summary>
 		///   Document entity. Must implements <see cref="IReportDocument" />
 		/// </summary>
-		[JsonProperty("dataEntity")]
+		[JsonPropertyName("dataEntity")]
 		public Type DataEntity
 		{
 			get { return _dataEntity; }
@@ -83,9 +85,9 @@ namespace Cloud17.IO.Parsing.Configuration
 			{
 				var type = value;
 
-				if (!typeof (IReportDocument).IsAssignableFrom(type))
+				if (!typeof(IReportDocument).IsAssignableFrom(type))
 				{
-					throw new NotImplementedException($"Type {type} do not implements interface {typeof (IReportDocument)}");
+					throw new NotImplementedException($"Type {type} do not implements interface {typeof(IReportDocument)}");
 				}
 
 				_dataEntity = type;
@@ -95,7 +97,7 @@ namespace Cloud17.IO.Parsing.Configuration
 		/// <summary>
 		///   Entity properties mappings
 		/// </summary>
-		[JsonProperty("mappings")]
+		[JsonPropertyName("mappings")]
 		public ItemMapping[] Mappings { get; set; }
 
 		#endregion

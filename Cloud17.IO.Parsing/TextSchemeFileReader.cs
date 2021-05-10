@@ -1,11 +1,13 @@
 ﻿using Cloud17.IO.Parsing.Configuration;
-using Cloud17.IO.Parsing.Logging;
-using Newtonsoft.Json;
+
+using Microsoft.Extensions.Logging;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace Cloud17.IO.Parsing
@@ -37,8 +39,8 @@ namespace Cloud17.IO.Parsing
 		/// </exception>
 		/// <exception cref="FileNotFoundException">
 		/// </exception>
-		public TextSchemeFileReader(byte[] fileContent, ParserConfiguration parserConfiguration)
-			: base(fileContent, parserConfiguration)
+		public TextSchemeFileReader(ILogger<TextSchemeFileReader> logger, byte[] fileContent, ParserConfiguration parserConfiguration)
+			: base(logger, fileContent, parserConfiguration)
 		{
 			if (fileContent == null || fileContent.Length == 0)
 				throw new NullReferenceException("File doesn't containt any data.");
@@ -77,7 +79,7 @@ namespace Cloud17.IO.Parsing
 		{
 			if (string.IsNullOrEmpty(configurationPath))
 			{
-				throw new NullReferenceException("Parser configuration file is not specified.");
+				throw new ArgumentNullException(nameof(configurationPath), "Parser configuration file is not specified.");
 			}
 
 			if (!File.Exists(configurationPath))
@@ -86,7 +88,12 @@ namespace Cloud17.IO.Parsing
 					configurationPath);
 			}
 
-			return JsonConvert.DeserializeObject<ParserConfiguration>(File.ReadAllText(configurationPath));
+			return JsonSerializer.Deserialize<ParserConfiguration>(File.ReadAllText(configurationPath));
+		}
+
+		public static ParserConfiguration ParseConfiguration(string configuration)
+		{
+			return JsonSerializer.Deserialize<ParserConfiguration>(configuration);
 		}
 
 		public override void Dispose()
@@ -102,7 +109,7 @@ namespace Cloud17.IO.Parsing
 		{
 			if (DocumentSettings.Count == 0) return;
 
-			var documents = BaseDocuments(DocumentSettings);
+			var documents = GetBaseDocuments(DocumentSettings);
 			if (documents == null) return;
 
 			try
@@ -117,13 +124,15 @@ namespace Cloud17.IO.Parsing
 			}
 			catch (Exception e)
 			{
-				Log.Error(e, "Document parsing error");
+				Log.LogError(e, "Document parsing error");
 				throw;
 			}
 		}
 
-		private List<DocumentSettings> DocumentSettings {
-			get {
+		private List<DocumentSettings> DocumentSettings
+		{
+			get
+			{
 				if (_documentSettings == null)
 				{
 					_documentSettings = ParserConfiguration.DocumentsSettings
@@ -139,19 +148,9 @@ namespace Cloud17.IO.Parsing
 		///   Performs application-defined tasks associated with freeing, releasing, or resetting
 		///   unmanaged resources.
 		/// </summary>
-		protected virtual void Dispose(bool disposing)
-		{
-			//if (disposing)
-			//{
-			//	if (_streamReader != null)
-			//	{
-			//		_streamReader.Dispose();
-			//		_streamReader = null;
-			//	}
-			//}
-		}
+		protected virtual void Dispose(bool disposing) { }
 
-		private string[] BaseDocuments(IEnumerable<DocumentSettings> settings)
+		private string[] GetBaseDocuments(IEnumerable<DocumentSettings> settings)
 		{
 			foreach (var set in settings)
 			{
@@ -183,7 +182,7 @@ namespace Cloud17.IO.Parsing
 			}
 			catch (Exception e)
 			{
-				Log.Error(e, "Document processing error");
+				Log.LogError(e, "Document processing error");
 				throw;
 			}
 		}
